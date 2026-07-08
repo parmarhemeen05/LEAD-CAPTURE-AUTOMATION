@@ -1,22 +1,35 @@
-# Lead Capture Automation using n8n
+# 🚀 Lead Capture Automation using n8n
 
-## Project Overview
-
-This project automates the lead management process using **n8n**, **Google Sheets**, and **Gmail**. When a new lead is submitted through a webhook (simulating a website contact form), the workflow automatically stores the lead details in Google Sheets, notifies the business owner via email, and sends a confirmation email to the customer.
+An automated Lead Management workflow built with **n8n**, **Google Sheets**, and **Gmail**. This workflow captures customer inquiries through a webhook, stores the lead information in Google Sheets, notifies the business owner, and sends an automatic confirmation email to the customer.
 
 ---
 
-## Objective
+## 📌 Project Overview
 
-- Capture lead information from a form submission.
-- Store lead data in Google Sheets.
-- Notify the business owner instantly.
-- Send an automatic confirmation email to the customer.
-- Demonstrate workflow automation using n8n.
+This project demonstrates how workflow automation can eliminate manual lead management tasks.
+
+Whenever a customer submits their information, the workflow automatically:
+
+- Receives the lead through a Webhook
+- Stores the lead in Google Sheets
+- Sends an email notification to the business owner
+- Sends a confirmation email to the customer
+
+This project was developed using **n8n Cloud** and Google services.
 
 ---
 
-## Technologies Used
+## 🎯 Objectives
+
+- Automate lead collection
+- Store lead data securely
+- Notify the business owner instantly
+- Send automatic confirmation emails
+- Demonstrate real-world workflow automation
+
+---
+
+# 🛠️ Technologies Used
 
 - n8n Cloud
 - Google Sheets API
@@ -24,10 +37,11 @@ This project automates the lead management process using **n8n**, **Google Sheet
 - Postman
 - Google Sheets
 - VS Code
+- Git & GitHub
 
 ---
 
-## Workflow
+# 🔄 Workflow Architecture
 
 ```
 Webhook
@@ -36,44 +50,61 @@ Webhook
 Google Sheets (Append Row)
     │
     ▼
-Gmail (Business Owner Notification)
+Gmail (Owner Notification)
     │
     ▼
-Gmail (Customer Auto Reply)
+Gmail (Customer Confirmation)
 ```
 
 ---
 
-## Workflow Description
+# 📋 Workflow Description
 
-### 1. Webhook Trigger
-- Receives lead details via HTTP POST request.
-- Input fields:
-  - Name
-  - Phone
-  - Email
-  - Requirement
+## 1️⃣ Webhook Trigger
 
-### 2. Google Sheets
-- Appends every lead into a Google Sheet named **Lead CRM**.
-- Stores:
-  - Name
-  - Phone
-  - Email
-  - Requirement
-  - Date & Time
+Receives an HTTP **POST** request containing customer details.
 
-### 3. Business Owner Notification
-- Sends an email to the business owner whenever a new lead is received.
-- Includes complete lead information.
+**Input Fields**
 
-### 4. Customer Auto Reply
-- Sends a confirmation email to the customer.
-- Confirms that the inquiry has been received successfully.
+- Name
+- Phone
+- Email
+- Requirement
 
 ---
 
-## Sample Input (Webhook)
+## 2️⃣ Google Sheets
+
+Automatically appends every new lead to the **Lead CRM** spreadsheet.
+
+Stored fields:
+
+- Name
+- Phone
+- Email
+- Requirement
+- Date & Time
+
+---
+
+## 3️⃣ Business Owner Notification
+
+Automatically sends an email to the business owner containing:
+
+- Customer Name
+- Phone Number
+- Email Address
+- Requirement
+
+---
+
+## 4️⃣ Customer Confirmation Email
+
+Automatically sends a confirmation email to the customer informing them that their inquiry has been received successfully.
+
+---
+
+# 📥 Sample Webhook Request
 
 ```json
 {
@@ -86,17 +117,17 @@ Gmail (Customer Auto Reply)
 
 ---
 
-## Output
+# 📤 Sample Outputs
 
-### Google Sheets
+## Google Sheets Entry
 
 | Name | Phone | Email | Requirement | Date |
 |------|-------|-------|-------------|------|
-| Hemeen Parmar | 9876543210 | hemeen@example.com | Need a Website | Auto Generated |
+| Hemeen Parmar | 9876543210 | parmarhemeen05@gmail.com | Need a Website | Auto Generated |
 
 ---
 
-### Business Owner Email
+## Business Owner Email
 
 **Subject**
 
@@ -111,13 +142,15 @@ New Lead Received!
 
 Name: Hemeen Parmar
 Phone: 9876543210
-Email: hemeen@example.com
+Email: parmarhemeen05@gmail.com
 Requirement: Need a Website
+
+Please contact the customer as soon as possible.
 ```
 
 ---
 
-### Customer Email
+## Customer Confirmation Email
 
 **Subject**
 
@@ -133,6 +166,7 @@ Hello Hemeen Parmar,
 Thank you for contacting us.
 
 We have received your inquiry regarding:
+
 Need a Website
 
 Our team will review your request and contact you shortly.
@@ -143,75 +177,128 @@ Hemeen Parmar
 
 ---
 
-## Project Structure
+# 📸 Project Screenshots
+
+## Workflow
+
+![Workflow](screenshots/workflow.png)
+
+---
+
+## Sample Input (Postman)
+
+![Form](screenshots/form.png)
+
+---
+
+## Google Sheets Output
+
+![Google Sheets](screenshots/sheets.png)
+
+---
+
+## Business Owner Email
+
+![New Lead Email](screenshots/new-lead.png)
+
+---
+
+## Customer Confirmation Email
+
+![Customer Email](screenshots/customer-email.png)
+
+---
+
+# 📁 Project Structure
 
 ```
-Lead-Capture-Automation/
+LEAD-CAPTURE-AUTOMATION/
 │
-├── workflow.json
+├── LICENSE
 ├── README.md
-├── report.pdf
-├── Lead-Capture.postman_collection.json
+├── workflow.json
 │
 └── screenshots/
     ├── workflow.png
-    ├── webhook.png
-    ├── postman.png
+    ├── form.png
     ├── sheets.png
-    ├── owner-email.png
-    ├── customer-email.png
+    ├── new-lead.png
+    └── customer-email.png
 ```
 
 ---
 
-## How to Run the Project
+# ▶️ How to Run
 
-1. Open the workflow in n8n.
-2. Activate the workflow.
-3. Copy the Production Webhook URL.
-4. Open Postman.
-5. Send a POST request with JSON data.
-6. Verify that:
-   - A new row is added to Google Sheets.
-   - The business owner receives an email.
-   - The customer receives a confirmation email.
+1. Clone this repository.
 
----
+```bash
+git clone https://github.com/parmarhemeen05/LEAD-CAPTURE-AUTOMATION.git
+```
 
-## Features
+2. Import **workflow.json** into n8n.
 
-- Automated lead capture
-- Google Sheets integration
-- Email notifications
-- Customer auto-response
-- No manual data entry
-- Cloud-based workflow automation
+3. Configure:
 
----
+- Google Sheets OAuth2
+- Gmail OAuth2
 
-## Future Improvements
+4. Activate the workflow.
 
-- WhatsApp notifications using Twilio or WAHA
-- CRM integration
-- Duplicate lead detection
-- Lead status tracking
-- Dashboard and analytics
-- File attachment support
+5. Copy the Production Webhook URL.
+
+6. Send a POST request using Postman.
+
+7. Verify:
+
+- ✅ Lead stored in Google Sheets
+- ✅ Owner receives notification email
+- ✅ Customer receives confirmation email
 
 ---
 
-## Author
+# ✨ Features
+
+- Automated Lead Capture
+- Google Sheets Integration
+- Gmail Notifications
+- Customer Auto Reply
+- Webhook Trigger
+- Cloud-based Automation
+- No Manual Data Entry
+
+---
+
+# 🚀 Future Improvements
+
+- WhatsApp Notifications
+- CRM Integration
+- Duplicate Lead Detection
+- Dashboard & Analytics
+- File Upload Support
+- Slack Notifications
+- SMS Alerts
+
+---
+
+# 👨‍💻 Author
 
 **Hemeen Parmar**
 
 Computer Science & Engineering Student
 
-R.N.G.P.I.T.
-
 GitHub: https://github.com/parmarhemeen05
+
+Email: parmarhemeen05@gmail.com
 
 ---
 
-## License
+# 📄 License
 
-This project is developed for educational and internship assignment purposes.
+This project is licensed under the **MIT License**.
+
+See the **LICENSE** file for more information.
+
+---
+
+⭐ If you found this project useful, consider giving it a star on GitHub!
