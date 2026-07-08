@@ -1,0 +1,212 @@
+{
+  "name": "LEAD_CAPTURE",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "9f10e2c2-6d6f-46ac-98f4-0cd8768d7526",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "77a7408c-9080-4ff9-a034-7742fcd81ebd",
+      "name": "Webhook",
+      "webhookId": "9f10e2c2-6d6f-46ac-98f4-0cd8768d7526"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1A8oc-1TEKWbd0-PbZXIKsfFHhckQm_pCUrU__3aA0Ao",
+          "mode": "list",
+          "cachedResultName": "Lead CRM",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1A8oc-1TEKWbd0-PbZXIKsfFHhckQm_pCUrU__3aA0Ao/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1A8oc-1TEKWbd0-PbZXIKsfFHhckQm_pCUrU__3aA0Ao/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.body.name }}",
+            "Phone ": "={{ $json.body.phone }}",
+            "E-mail": "={{ $json.body.email }}",
+            "Requirement": "={{ $json.body.requirement }}",
+            "Date": "={{ $now }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone ",
+              "displayName": "Phone ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "E-mail",
+              "displayName": "E-mail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Requirement",
+              "displayName": "Requirement",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "9aa68d34-5f47-4a8d-be59-93f623af4bb3",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "uY6PME2F5pfImV2w",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "your-email@gmail.com",
+        "subject": "New Lead Received",
+        "emailType": "text",
+        "message": "=New Lead Received!\n\nName: {{ $json.body.name }}\nPhone: {{ $json.body.phone }}\nEmail: {{ $json.body.email }}\nRequirement: {{ $json.body.requirement }}\n\nPlease contact the customer as soon as possible.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "4fdb3d45-1905-4924-bbaf-7d89c465a98d",
+      "name": "Send a message",
+      "webhookId": "f0fe9d4b-0b52-4bd7-90e8-af8968ae6714",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "pYiT2T3sAynsfTHX",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Webhook').item.json.body.email }}",
+        "subject": "Thank You for Contacting Us",
+        "message": "=Hello {{ $('Webhook').item.json.body.name }},\n\nThank you for contacting us.\n\nWe have received your inquiry regarding:\n\n{{ $('Webhook').item.json.body.requirement }}\n\nOur team will review your request and contact you shortly.\n\nRegards,\nHemeen Parmar",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        624,
+        0
+      ],
+      "id": "31458372-a5d4-4d99-bd80-59dd60ef21ec",
+      "name": "Send a message1",
+      "webhookId": "e7cb1e9b-cc7b-46ff-8e75-4990ccb6d9b9",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "pYiT2T3sAynsfTHX",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "b7589695-6695-480d-a44f-c9db9c7d7118",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ad3a863165d6b025cce12aaae0f9f1a1bf38e689a80ae601a2a5e7a769be6512"
+  },
+  "nodeGroups": [],
+  "id": "bBIYgVKsnTF1dllM",
+  "tags": []
+}
